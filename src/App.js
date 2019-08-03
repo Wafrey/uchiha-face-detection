@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
 import Logo from './components/logo/logo.component';
+import ImageLinkForm from './components/image-link-form/image-link-form.component';
 import './App.css';
 
 const particlesOptions={
@@ -40,7 +41,8 @@ class App extends Component{
           className='particles'
           params={particlesOptions}
         />
-        <Logo/>
+        <Logo className=''/>
+        <ImageLinkForm/>
       </div>
     )
   }
