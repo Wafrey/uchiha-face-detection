@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
+import Navigation from './components/navigation/navigation.component';
 import Logo from './components/logo/logo.component';
 import ImageLinkForm from './components/image-link-form/image-link-form.component';
 import Rank from './components/rank/rank.component';
@@ -31,7 +32,8 @@ class App extends Component{
     super();
 
     this.state = {
-
+      input: '',
+      imageUrl: ''
     }
   }
   
@@ -42,6 +44,7 @@ class App extends Component{
           className='particles'
           params={particlesOptions}
         />
+        <Navigation/>
         <Logo className=''/>
         <Rank/>
         <ImageLinkForm/>
