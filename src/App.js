@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import Clarifai from 'clarifai';
 import Particles from 'react-particles-js';
 import Navigation from './components/navigation/navigation.component';
 import Logo from './components/logo/logo.component';
 import ImageLinkForm from './components/image-link-form/image-link-form.component';
 import Rank from './components/rank/rank.component';
 import './App.css';
+
+const app = new Clarifai.App({
+
+  apiKey: '5c8d2dbf5629416d959c347d068e5271'
+});
 
 const particlesOptions={
   particles: {
@@ -34,6 +40,21 @@ class App extends Component{
     this.state = {
       input: '',
       imageUrl: ''
+    }
+  }
+  
+  calculateFaceLocation = (data) => {
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById('inputimage');
+    const width=Number(image.width);
+    const height=Number(image.height);
+    
+    return{
+  
+      leftCol: clarifaiFace.left_col*width,
+      topRow: clarifaiFace.top_row*height,
+      rightCol: width-(clarifaiFace.right_col*width),
+      bottomRow: height-(clarifaiFace.bottom_row*height)
     }
   }
   
