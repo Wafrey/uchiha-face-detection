@@ -5,6 +5,7 @@ import Navigation from './components/navigation/navigation.component';
 import Logo from './components/logo/logo.component';
 import ImageLinkForm from './components/image-link-form/image-link-form.component';
 import Rank from './components/rank/rank.component';
+import FaceRecognition from './components/face-recognition/face-recognition.component';
 import './App.css';
 
 const app = new Clarifai.App({
@@ -39,7 +40,10 @@ class App extends Component{
 
     this.state = {
       input: '',
-      imageUrl: ''
+      imageUrl: '',
+      box: {
+
+      }
     }
   }
   
@@ -57,8 +61,24 @@ class App extends Component{
       bottomRow: height-(clarifaiFace.bottom_row*height)
     }
   }
+
+  onInputChange = (event) => {
+    this.setState({input: event.target.value});
+  }
+
+  onButtonSubmit = () => {
+    this.setState({imageUrl: this.state.input});
+    
+    app.models.predict(
+      Clarifai.FACE_DETECT_MODEL, 
+      this.state.input)
+      .then(response => this.displayFaceBox(this.calculateFaceLocation(response))) 
+      .catch(err => console.log(err))
+  }
+
   
   render(){
+    const { imageUrl, box, } = this.state;
     return(
       <div className='App'>
         <Particles 
@@ -68,7 +88,10 @@ class App extends Component{
         <Navigation/>
         <Logo className=''/>
         <Rank/>
-        <ImageLinkForm/>
+        <ImageLinkForm 
+          onInputChange={this.onInputChange}
+          onButtonSubmit={this.onButtonSubmit}
+        />
       </div>
     )
   }
