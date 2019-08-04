@@ -35,19 +35,37 @@ const particlesOptions={
  }
 }
 
+const initialState={
+  input: '',
+  imageUrl: '',
+  box: {},
+  route: 'signin',
+  isSignedIn: false,
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: ''
+  }
+}
+
 class App extends Component{
   constructor(){
     super();
-
-    this.state = {
-      input: '',
-      imageUrl: '',
-      box: {
-
-      }
-    }
+    this.state = initialState;
   }
   
+  loadUser = (data) => {
+    this.setState({user: {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined
+    }})
+  }
+
   calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('inputimage');
@@ -55,7 +73,6 @@ class App extends Component{
     const height=Number(image.height);
     
     return{
-  
       leftCol: clarifaiFace.left_col*width,
       topRow: clarifaiFace.top_row*height,
       rightCol: width-(clarifaiFace.right_col*width),
@@ -79,7 +96,7 @@ class App extends Component{
 
   
   render(){
-    const { imageUrl, box, } = this.state;
+    const { isSignedIn, imageUrl, route, box  } = this.state;
     return(
       <div className='App'>
         <Particles 
