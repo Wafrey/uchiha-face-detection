@@ -5,6 +5,7 @@ import Navigation from './components/navigation/navigation.component';
 import Logo from './components/logo/logo.component';
 import ImageLinkForm from './components/image-link-form/image-link-form.component';
 import Rank from './components/rank/rank.component';
+import Register from './components/register/register.component';
 import FaceRecognition from './components/face-recognition/face-recognition.component';
 import './App.css';
 
