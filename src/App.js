@@ -83,7 +83,7 @@ class App extends Component{
   displayFaceBox = (box) => {
     this.setState({box: box});
   }
-  
+
   onInputChange = (event) => {
     this.setState({input: event.target.value});
   }
@@ -98,7 +98,15 @@ class App extends Component{
       .catch(err => console.log(err))
   }
 
-  
+  onRouteChange = (route) => {
+    if (route === 'signout') {
+      this.setState(initialState)
+    } else if (route === 'home') {
+      this.setState({isSignedIn: true})
+    }
+    this.setState({route: route});
+  }
+
   render(){
     const { isSignedIn, imageUrl, route, box  } = this.state;
     return(
